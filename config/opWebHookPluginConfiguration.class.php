@@ -26,5 +26,22 @@
  */
 class opWebHookPluginConfiguration extends sfPluginConfiguration
 {
+  public function initialize()
+  {
+    if ($this->configuration instanceof opApplicationConfiguration)
+    {
+      $this->dispatcher->connect('op_action.post_execute_diary_create',
+        array($this, 'listenToPostDiaryCreate'));
+    }
+  }
+
+  public function listenToPostDiaryCreate(sfEvent $event)
+  {
+    $diaryForm = $event['actionInstance']->form;
+    if ($diaryForm->isValid())
+    {
+      opWebHookTwitter::hookDiaryCreate($diaryForm->getObject());
+    }
+  }
 }
 // vim: et fenc=utf-8 sts=2 sw=2 ts=2
