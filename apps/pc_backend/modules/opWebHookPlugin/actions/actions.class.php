@@ -53,6 +53,31 @@ class opWebHookPluginActions extends sfActions
 
   public function executeTwitterSignin(sfWebRequest $request)
   {
-    // TODO: 認可画面へリダイレクト -> sns_config にアクセストークンを設定
+    $tw = opWebHookTwitter::api();
+
+    if (!isset($request['oauth_verifier']))
+    {
+      $callbackUri = sfContext::getInstance()->getConfiguration()
+        ->generateAppUrl('pc_backend', array('sf_route' => 'webhook_twitter_signin'), true);
+      $tw = $tw->renewWithRequestToken($callbackUri);
+
+      $snsConfigTable = Doctrine_Core::getTable('SnsConfig');
+      $snsConfigTable->set('webhook_twitter_access_token', $tw->ot);
+      $snsConfigTable->set('webhook_twitter_access_secret', $tw->os);
+
+      $this->redirect($tw->getAuthenticateUrl());
+    }
+    else
+    {
+      $tw = $tw->renewWithAccessToken($request['oauth_verifier']);
+
+      $snsConfigTable = Doctrine_Core::getTable('SnsConfig');
+      $snsConfigTable->set('webhook_twitter_access_token', $tw->ot);
+      $snsConfigTable->set('webhook_twitter_access_secret', $tw->os);
+
+      $this->getUser()->setFlash('notice', 'Saved.');
+      $this->redirect(array('sf_route' => 'webhook_twitter'));
+    }
   }
 }
+// vim: et fenc=utf-8 sts=2 sw=2 ts=2
