@@ -26,8 +26,8 @@
  */
 class opWebHookTwitter
 {
-  const TWITTER_CONSUMER_KEY = 'hJsx6JzBgQXJ00rQUIZkJPZug';
-  const TWITTER_CONSUMER_SECRET = '8BPfy1sbxAsoa9AJl7K2qzScvRqjEXjhSQaR2WZmYpzfbAqpGI';
+  const TWITTER_CONSUMER_KEY = 'M19tIbCRd65qUUFYbD0lnC7b5';
+  const TWITTER_CONSUMER_SECRET = 'LF8Dk9qm7uS5ninFxQzj4Ipbw1vJ7jwKwl3n29HJlaz0v2RWf9';
 
   public static function api()
   {
