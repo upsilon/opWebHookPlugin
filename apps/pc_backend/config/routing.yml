@@ -1,0 +1,15 @@
+webhook_index:
+  url: /opWebHookPlugin
+  params: { module: opWebHookPlugin, action: index }
+
+webhook_twitter:
+  url: /opWebHookPlugin/twitter
+  params: { module: opWebHookPlugin, action: twitter }
+
+webhook_twitter_signin:
+  url: /opWebHookPlugin/twitter/signin
+  params: { module: opWebHookPlugin, action: twitterSignin }
+
+webhook_nodefault:
+  url: /opWebHookPlugin/*
+  params: { module: default, action: error }

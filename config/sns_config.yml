@@ -1,0 +1,17 @@
+webhook_twitter:
+  _attributes:
+    Hidden: true
+
+  webhook_twitter_access_token:
+    Name:       webhook_twitter_access_token
+    Caption:    Twitter Access Token
+    FormType:   text
+    ValueType:  string
+    IsRequired: true
+
+  webhook_twitter_access_secret:
+    Name:       webhook_twitter_access_secret
+    Caption:    Twitter Access Secret
+    FormType:   text
+    ValueType:  string
+    IsRequired: true
