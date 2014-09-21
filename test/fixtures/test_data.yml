@@ -1,0 +1,23 @@
+Member:
+  member1:
+    id: 1
+    name: A
+    is_active: 1
+  member2:
+    id: 2
+    name: B
+    is_active: 1
+
+MemberConfig:
+  member1_address:
+    name: pc_address
+    value: sns@example.com
+    Member: member1
+  member1_mobile_address:
+    name: mobile_address
+    value: sns@example.com
+    Member: member1
+  member1_password:
+    name: password
+    value: "<?php echo md5('password') ?>"
+    Member: member1
