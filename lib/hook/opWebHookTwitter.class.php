@@ -58,5 +58,31 @@ class opWebHookTwitter
       'status' => sprintf('[日記] %s %s', $title, $uri),
     ));
   }
+
+  public static function hookTopicCreate($topic)
+  {
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'opUtil'));
+
+    $uri = sfContext::getInstance()->getConfiguration()
+      ->generateAppUrl('pc_frontend', array('sf_route' => 'communityTopic_show', 'id' => $topic->id), true);
+    $title = op_truncate($topic->name, 140 - 23 - 4 - 2);
+
+    self::api()->post('statuses/update', array(
+      'status' => sprintf('[トピック] %s %s', $title, $uri),
+    ));
+  }
+
+  public static function hookEventCreate($event)
+  {
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'opUtil'));
+
+    $uri = sfContext::getInstance()->getConfiguration()
+      ->generateAppUrl('pc_frontend', array('sf_route' => 'communityEvent_show', 'id' => $event->id), true);
+    $title = op_truncate($event->name, 140 - 23 - 4 - 2);
+
+    self::api()->post('statuses/update', array(
+      'status' => sprintf('[イベント] %s %s', $title, $uri),
+    ));
+  }
 }
 // vim: et fenc=utf-8 sts=2 sw=2 ts=2

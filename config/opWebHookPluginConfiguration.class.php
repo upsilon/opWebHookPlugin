@@ -32,6 +32,10 @@ class opWebHookPluginConfiguration extends sfPluginConfiguration
     {
       $this->dispatcher->connect('op_action.post_execute_diary_create',
         array($this, 'listenToPostDiaryCreate'));
+      $this->dispatcher->connect('op_action.post_execute_communityTopic_create',
+        array($this, 'listenToPostTopicCreate'));
+      $this->dispatcher->connect('op_action.post_execute_communityEvent_create',
+        array($this, 'listenToPostEventCreate'));
     }
   }
 
@@ -41,6 +45,24 @@ class opWebHookPluginConfiguration extends sfPluginConfiguration
     if ($diaryForm->isValid())
     {
       opWebHookTwitter::hookDiaryCreate($diaryForm->getObject());
+    }
+  }
+
+  public function listenToPostTopicCreate(sfEvent $event)
+  {
+    $topicForm = $event['actionInstance']->form;
+    if ($topicForm->isValid())
+    {
+      opWebHookTwitter::hookTopicCreate($topicForm->getObject());
+    }
+  }
+
+  public function listenToPostEventCreate(sfEvent $event)
+  {
+    $eventForm = $event['actionInstance']->form;
+    if ($eventForm->isValid())
+    {
+      opWebHookTwitter::hookEventCreate($eventForm->getObject());
     }
   }
 }
